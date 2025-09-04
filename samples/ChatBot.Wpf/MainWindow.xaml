@@ -1,0 +1,31 @@
+<Window x:Class="ChatBot.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatBot.Wpf"
+        mc:Ignorable="d"
+        Title="DeepSeek Chat Library Demo" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Output Area -->
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <RichTextBox x:Name="OutputTextBox" IsReadOnly="True" FontFamily="Consolas" FontSize="12" Margin="10"/>
+        </ScrollViewer>
+
+        <!-- Input Area -->
+        <TextBox x:Name="InputTextBox" Grid.Row="1" Margin="10,5" AcceptsReturn="True" Height="60" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+
+        <!-- Controls -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,5">
+            <CheckBox x:Name="DebugInfoCheckBox" Content="Показывать debug" IsChecked="True" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <CheckBox x:Name="TokenUsageCheckBox" Content="Показывать токены" IsChecked="True" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <Button x:Name="SendButton" Content="Отправить" Width="100" Height="30" Click="SendButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
