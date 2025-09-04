@@ -1,87 +1,87 @@
-# DeepSeek.Client - Полная документация
+# DeepSeek.Client - Complete Documentation
 
-## 📖 Оглавление
+## 📖 Table of Contents
 
-1. [Введение](#введение)
-2. [Установка и настройка](#установка-и-настройка)
-3. [Быстрый старт](#быстрый-старт)
-4. [Основные концепции](#основные-концепции)
+1. [Introduction](#introduction)
+2. [Installation and Setup](#installation-and-setup)
+3. [Quick Start](#quick-start)
+4. [Core Concepts](#core-concepts)
 5. [API Reference](#api-reference)
-6. [Примеры использования](#примеры-использования)
-7. [Расширенные возможности](#расширенные-возможности)
-8. [Обработка ошибок](#обработка-ошибок)
-9. [Лучшие практики](#лучшие-практики)
+6. [Usage Examples](#usage-examples)
+7. [Advanced Features](#advanced-features)
+8. [Error Handling](#error-handling)
+9. [Best Practices](#best-practices)
 10. [Troubleshooting](#troubleshooting)
 
 ---
 
-## 🎯 Введение
+## 🎯 Introduction
 
-**DeepSeek.Client** - это современная C# библиотека для работы с DeepSeek AI API. Библиотека предоставляет простой и интуитивный интерфейс для интеграции возможностей ИИ в ваши .NET приложения.
+**DeepSeek.Client** is a modern C# library for working with the DeepSeek AI API. The library provides a simple and intuitive interface for integrating AI capabilities into your .NET applications.
 
-### ✨ Ключевые возможности
+### ✨ Key Features
 
-- 🚀 **Полная асинхронная поддержка** - все операции async/await
-- 📡 **Streaming поддержка** - получение ответов в реальном времени
-- 💬 **Автоматическое управление историей** - бесшовная работа с контекстом разговора
-- 🎛️ **Гибкая конфигурация** - настройка всех параметров API
-- 📊 **Мониторинг использования** - статистика токенов и отладочная информация
-- 🎨 **WPF интеграция** - готовые компоненты для WPF приложений
-- 🔧 **Расширяемая архитектура** - события и переопределения для кастомизации
+- 🚀 **Full asynchronous support** - all operations are async/await
+- 📡 **Streaming support** - real-time response reception
+- 💬 **Automatic history management** - seamless work with conversation context
+- 🎛️ **Flexible configuration** - customization of all API parameters
+- 📊 **Usage monitoring** - token statistics and debug information
+- 🎨 **WPF integration** - ready-to-use WPF components
+- 🔧 **Extensible architecture** - events and overrides for customization
 
-### 🏗️ Архитектура
+### 🏗️ Architecture
 
-Библиотека построена на принципах:
-- **Простота использования** - минимум boilerplate кода
-- **Безопасность** - правильная обработка ошибок и ресурсов
-- **Производительность** - эффективное использование HTTP и памяти
-- **Расширяемость** - возможность добавления новых функций
+The library is built on the principles of:
+- **Ease of use** - minimal boilerplate code
+- **Security** - proper error handling and resource management
+- **Performance** - efficient use of HTTP and memory
+- **Extensibility** - ability to add new features
 
 ---
 
-## 📦 Установка и настройка
+## 📦 Installation and Setup
 
-### Требования
+### Requirements
 
-- .NET 8.0 или выше
-- DeepSeek API ключ (получить на [platform.deepseek.com](https://platform.deepseek.com))
+- .NET 8.0 or higher
+- DeepSeek API key (obtain from [platform.deepseek.com](https://platform.deepseek.com))
 
-### Установка из исходников
+### Installation from Source
 
-1. **Клонируйте репозиторий:**
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/your-repo/deepseek-client.git
 cd deepseek-client
 ```
 
-2. **Соберите решение:**
+2. **Build the solution:**
 ```bash
 dotnet build DeepSeek.sln
 ```
 
-3. **Добавьте ссылку на проект:**
+3. **Add project reference:**
 ```xml
-<!-- В вашем .csproj файле -->
+<!-- In your .csproj file -->
 <ItemGroup>
   <ProjectReference Include="path/to/src/DeepSeek.Client/DeepSeek.Client.csproj" />
 </ItemGroup>
 ```
 
-### Альтернативные способы установки
+### Alternative Installation Methods
 
-#### Через NuGet (будущий релиз)
+#### Via NuGet (Future Release)
 ```bash
 dotnet add package DeepSeek.Client
 ```
 
-#### Ручное копирование
-Скопируйте файлы из `src/DeepSeek.Client/` в ваш проект.
+#### Manual Copying
+Copy files from `src/DeepSeek.Client/` to your project.
 
 ---
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
-### Минимальный пример
+### Minimal Example
 
 ```csharp
 using DeepSeek.Client;
@@ -90,19 +90,19 @@ class Program
 {
     static async Task Main()
     {
-        // Создаем клиент с API ключом
+        // Create client with API key
         var client = new DeepSeekClient("your-api-key-here");
 
-        // Отправляем сообщение
-        var result = await client.SendMessageAsync("Привет! Как дела?");
+        // Send message
+        var result = await client.SendMessageAsync("Hello! How are you?");
 
-        // Выводим ответ
+        // Display response
         Console.WriteLine(result.Content);
     }
 }
 ```
 
-### С потоковым выводом
+### With Streaming Output
 
 ```csharp
 using DeepSeek.Client;
@@ -113,21 +113,21 @@ class Program
     {
         var client = new DeepSeekClient("your-api-key");
 
-        // Подписываемся на получение чанков в реальном времени
+        // Subscribe to real-time chunk reception
         client.OnStreamChunkReceived += (sender, chunk) =>
         {
-            Console.Write(chunk); // Выводим по мере получения
+            Console.Write(chunk); // Display as received
         };
 
-        // Отправляем сообщение с потоковым выводом
-        var result = await client.SendMessageAsync("Расскажи сказку", stream: true);
+        // Send message with streaming output
+        var result = await client.SendMessageAsync("Tell me a story", stream: true);
 
-        Console.WriteLine($"\n\nВсего токенов: {result.Usage?.TotalTokens ?? 0}");
+        Console.WriteLine($"\n\nTotal tokens: {result.Usage?.TotalTokens ?? 0}");
     }
 }
 ```
 
-### WPF интеграция
+### WPF Integration
 
 ```csharp
 using DeepSeek.Client;
@@ -141,10 +141,10 @@ public partial class ChatWindow : Window
     {
         InitializeComponent();
 
-        // Инициализируем клиент
+        // Initialize client
         _client = new DeepSeekClient("your-api-key");
 
-        // Подписываемся на события
+        // Subscribe to events
         _client.OnStreamChunkReceived += (s, chunk) =>
             Dispatcher.Invoke(() => ChatTextBox.AppendText(chunk));
     }
@@ -153,7 +153,7 @@ public partial class ChatWindow : Window
     {
         var message = InputTextBox.Text;
 
-        // Просто отправляем сообщение - история управляется автоматически
+        // Just send message - history is managed automatically
         await _client.SendMessageAsync(message, stream: true);
     }
 }
@@ -161,53 +161,53 @@ public partial class ChatWindow : Window
 
 ---
 
-## 🧠 Основные концепции
+## 🧠 Core Concepts
 
-### 1. Клиент (DeepSeekClient)
+### 1. Client (DeepSeekClient)
 
-Основной класс для взаимодействия с DeepSeek API. Управляет соединением, историей сообщений и всеми операциями.
+The main class for interacting with the DeepSeek API. Manages connections, message history, and all operations.
 
-**Ключевые особенности:**
-- Автоматическое управление HTTP соединением
-- Встроенная история разговора
-- Конфигурируемые опции
-- Событийная модель для мониторинга
+**Key features:**
+- Automatic HTTP connection management
+- Built-in conversation history
+- Configurable options
+- Event-driven monitoring model
 
-### 2. Сообщения (ChatMessage)
+### 2. Messages (ChatMessage)
 
-Представляют отдельные сообщения в разговоре.
+Represent individual messages in a conversation.
 
 ```csharp
 public class ChatMessage
 {
     public string Role { get; set; }     // "user", "assistant", "system"
-    public string Content { get; set; }  // Текст сообщения
+    public string Content { get; set; }  // Message text
 }
 ```
 
-**Роли сообщений:**
-- `user` - сообщения от пользователя
-- `assistant` - ответы от ИИ
-- `system` - системные инструкции
+**Message roles:**
+- `user` - messages from the user
+- `assistant` - responses from AI
+- `system` - system instructions
 
-### 3. Результаты (ChatResult)
+### 3. Results (ChatResult)
 
-Результат выполнения запроса к API.
+The result of executing a request to the API.
 
 ```csharp
 public class ChatResult
 {
-    public string Content { get; set; }      // Сгенерированный текст
-    public string Role { get; set; }         // Роль ответа
-    public Usage? Usage { get; set; }        // Статистика использования
-    public bool WasStreamed { get; set; }    // Был ли потоковый вывод
-    public string? FinishReason { get; set; } // Причина завершения
+    public string Content { get; set; }      // Generated text
+    public string Role { get; set; }         // Response role
+    public Usage? Usage { get; set; }        // Usage statistics
+    public bool WasStreamed { get; set; }    // Whether response was streamed
+    public string? FinishReason { get; set; } // Completion reason
 }
 ```
 
-### 4. Конфигурация (DeepSeekClientOptions)
+### 4. Configuration (DeepSeekClientOptions)
 
-Настройки поведения клиента.
+Client behavior settings.
 
 ```csharp
 public class DeepSeekClientOptions
@@ -222,13 +222,13 @@ public class DeepSeekClientOptions
 }
 ```
 
-### 5. Автоматическое управление историей
+### 5. Automatic History Management
 
-Библиотека автоматически:
-- Сохраняет отправленные сообщения пользователя
-- Сохраняет полученные ответы ассистента
-- Ограничивает размер истории (MaxHistorySize)
-- Предоставляет доступ к истории через GetHistory()
+The library automatically:
+- Saves sent user messages
+- Saves received assistant responses
+- Limits history size (MaxHistorySize)
+- Provides access to history via GetHistory()
 
 ---
 
@@ -236,20 +236,20 @@ public class DeepSeekClientOptions
 
 ### DeepSeekClient
 
-#### Конструкторы
+#### Constructors
 
 ```csharp
-// Базовый конструктор
+// Basic constructor
 public DeepSeekClient(string apiKey)
 
-// С расширенными опциями
+// With extended options
 public DeepSeekClient(string apiKey, DeepSeekClientOptions? options)
 ```
 
-#### Основные методы
+#### Main Methods
 
 ##### SendMessageAsync
-Отправляет сообщение с автоматическим управлением историей.
+Sends a message with automatic history management.
 
 ```csharp
 Task<ChatResult> SendMessageAsync(
@@ -258,15 +258,15 @@ Task<ChatResult> SendMessageAsync(
     CancellationToken cancellationToken = default)
 ```
 
-**Параметры:**
-- `message` - текст сообщения
-- `stream` - использовать ли потоковый вывод (по умолчанию true)
-- `cancellationToken` - токен отмены операции
+**Parameters:**
+- `message` - message text
+- `stream` - whether to use streaming output (default true)
+- `cancellationToken` - cancellation token
 
-**Возвращает:** `ChatResult` с результатом выполнения
+**Returns:** `ChatResult` with execution result
 
 ##### SendMessageOnceAsync
-Отправляет сообщение без сохранения в истории.
+Sends a message without saving to history.
 
 ```csharp
 Task<ChatResult> SendMessageOnceAsync(
@@ -275,10 +275,10 @@ Task<ChatResult> SendMessageOnceAsync(
     CancellationToken cancellationToken = default)
 ```
 
-**Использование:** Для одноразовых запросов или кастомного управления историей.
+**Usage:** For one-time requests or custom history management.
 
 ##### SendMessagesAsync
-Отправляет список сообщений.
+Sends a list of messages.
 
 ```csharp
 Task<ChatResult> SendMessagesAsync(
@@ -287,10 +287,10 @@ Task<ChatResult> SendMessagesAsync(
     CancellationToken cancellationToken = default)
 ```
 
-**Использование:** Для отправки полной истории или системных сообщений.
+**Usage:** For sending full history or system messages.
 
 ##### SendMessageWithDebugAsync
-Отправляет сообщение с включенной отладкой.
+Sends a message with debug enabled.
 
 ```csharp
 Task<ChatResult> SendMessageWithDebugAsync(
@@ -299,108 +299,108 @@ Task<ChatResult> SendMessageWithDebugAsync(
     CancellationToken cancellationToken = default)
 ```
 
-**Особенности:** Временно включает все отладочные опции.
+**Features:** Temporarily enables all debug options.
 
-#### Управление историей
+#### History Management
 
 ##### GetHistory
-Получает копию текущей истории разговора.
+Gets a copy of the current conversation history.
 
 ```csharp
 List<ChatMessage> GetHistory()
 ```
 
-**Возвращает:** Новый список с копиями сообщений.
+**Returns:** New list with message copies.
 
 ##### ClearHistory
-Очищает историю разговора.
+Clears the conversation history.
 
 ```csharp
 void ClearHistory()
 ```
 
-**Особенности:** Вызывает событие `OnHistoryCleared`.
+**Features:** Raises `OnHistoryCleared` event.
 
 ##### AddMessage
-Добавляет сообщение в историю вручную.
+Adds a message to history manually.
 
 ```csharp
 void AddMessage(string role, string content)
 ```
 
-**Параметры:**
-- `role` - роль сообщения ("user", "assistant", "system")
-- `content` - текст сообщения
+**Parameters:**
+- `role` - message role ("user", "assistant", "system")
+- `content` - message text
 
 ##### HistoryCount
-Получает количество сообщений в истории.
+Gets the number of messages in history.
 
 ```csharp
 int HistoryCount { get; }
 ```
 
-#### Свойства
+#### Properties
 
 ##### Options
-Текущие настройки клиента.
+Current client settings.
 
 ```csharp
 DeepSeekClientOptions Options { get; }
 ```
 
-**Особенности:** Только для чтения, изменения через пересоздание клиента.
+**Features:** Read-only, changes via client recreation.
 
-#### События
+#### Events
 
 ##### OnStreamChunkReceived
-Вызывается при получении очередного чанка в потоковом режиме.
+Raised when receiving the next chunk in streaming mode.
 
 ```csharp
 event EventHandler<string>? OnStreamChunkReceived
 ```
 
-**Параметры события:**
-- `sender` - экземпляр DeepSeekClient
-- `chunk` - полученный текстовый фрагмент
+**Event parameters:**
+- `sender` - DeepSeekClient instance
+- `chunk` - received text fragment
 
 ##### OnError
-Вызывается при возникновении ошибки.
+Raised when an error occurs.
 
 ```csharp
 event EventHandler<Exception>? OnError
 ```
 
-**Параметры события:**
-- `sender` - экземпляр DeepSeekClient
-- `error` - исключение с деталями ошибки
+**Event parameters:**
+- `sender` - DeepSeekClient instance
+- `error` - exception with error details
 
 ##### OnDebugInfo
-Вызывается для отладочной информации.
+Raised for debug information.
 
 ```csharp
 event EventHandler<string>? OnDebugInfo
 ```
 
-**Условия вызова:** Только если `Options.ShowDebugInfo = true`
+**Call conditions:** Only if `Options.ShowDebugInfo = true`
 
 ##### OnTokenUsage
-Вызывается при получении статистики использования токенов.
+Raised when receiving token usage statistics.
 
 ```csharp
 event EventHandler<Usage>? OnTokenUsage
 ```
 
-**Условия вызова:** Только если `Options.ShowTokenUsage = true`
+**Call conditions:** Only if `Options.ShowTokenUsage = true`
 
 ##### OnMessageAdded
-Вызывается при добавлении сообщения в историю.
+Raised when a message is added to history.
 
 ```csharp
 event EventHandler<ChatMessage>? OnMessageAdded
 ```
 
 ##### OnHistoryCleared
-Вызывается при очистке истории.
+Raised when history is cleared.
 
 ```csharp
 event EventHandler? OnHistoryCleared
@@ -408,100 +408,100 @@ event EventHandler? OnHistoryCleared
 
 ### DeepSeekClientOptions
 
-#### Свойства
+#### Properties
 
 ##### Model
-Модель для генерации ответов.
+Model for generating responses.
 
 ```csharp
 string Model { get; set; } = "deepseek-chat"
 ```
 
-**Возможные значения:**
-- `"deepseek-chat"` - основная модель для чата
-- `"deepseek-coder"` - модель для программирования
+**Possible values:**
+- `"deepseek-chat"` - main chat model
+- `"deepseek-coder"` - programming model
 
 ##### MaxTokens
-Максимальное количество токенов в ответе.
+Maximum number of tokens in response.
 
 ```csharp
 int? MaxTokens { get; set; }
 ```
 
-**По умолчанию:** `null` (используется лимит API)
+**Default:** `null` (uses API limit)
 
 ##### Temperature
-Степень случайности в ответах (0.0 - 2.0).
+Degree of randomness in responses (0.0 - 2.0).
 
 ```csharp
 double? Temperature { get; set; } = 0.7
 ```
 
-**Рекомендации:**
-- `0.0` - детерминированные ответы
-- `0.7` - сбалансированная случайность
-- `1.5+` - высокая креативность
+**Recommendations:**
+- `0.0` - deterministic responses
+- `0.7` - balanced randomness
+- `1.5+` - high creativity
 
 ##### Timeout
-Таймаут для HTTP запросов.
+Timeout for HTTP requests.
 
 ```csharp
 TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(5)
 ```
 
 ##### ShowDebugInfo
-Показывать ли отладочную информацию.
+Whether to show debug information.
 
 ```csharp
 bool ShowDebugInfo { get; set; } = false
 ```
 
-**Что показывается:**
-- Content-Type ответов
-- Первые строки стрима
-- Детали ошибок парсинга
+**What is shown:**
+- Response Content-Type
+- First lines of stream
+- Parsing error details
 
 ##### ShowTokenUsage
-Показывать ли статистику использования токенов.
+Whether to show token usage statistics.
 
 ```csharp
 bool ShowTokenUsage { get; set; } = false
 ```
 
-**Формат вывода:**
+**Output format:**
 ```
 [USAGE] Tokens: 150 (Prompt: 100, Completion: 50)
 ```
 
 ##### MaxHistorySize
-Максимальное количество сообщений в истории.
+Maximum number of messages in history.
 
 ```csharp
 int MaxHistorySize { get; set; } = 50
 ```
 
-**Особенности:**
-- `0` = без ограничений
-- При превышении удаляются самые старые сообщения
+**Features:**
+- `0` = unlimited
+- When exceeded, oldest messages are removed
 
 ### ChatMessage
 
-#### Свойства
+#### Properties
 
 ##### Role
-Роль автора сообщения.
+Message author's role.
 
 ```csharp
 string Role { get; set; }
 ```
 
-**Допустимые значения:**
-- `"user"` - сообщение от пользователя
-- `"assistant"` - ответ от ИИ
-- `"system"` - системная инструкция
+**Allowed values:**
+- `"user"` - message from user
+- `"assistant"` - response from AI
+- `"system"` - system instruction
 
 ##### Content
-Текст сообщения.
+Message text.
 
 ```csharp
 string Content { get; set; }
@@ -509,68 +509,68 @@ string Content { get; set; }
 
 ### ChatResult
 
-#### Свойства
+#### Properties
 
 ##### Content
-Сгенерированный текст ответа.
+Generated response text.
 
 ```csharp
 string Content { get; set; }
 ```
 
 ##### Role
-Роль ответа (обычно "assistant").
+Response role (usually "assistant").
 
 ```csharp
 string Role { get; set; }
 ```
 
 ##### Usage
-Статистика использования токенов.
+Token usage statistics.
 
 ```csharp
 Usage? Usage { get; set; }
 ```
 
 ##### WasStreamed
-Был ли ответ получен в потоковом режиме.
+Whether response was received in streaming mode.
 
 ```csharp
 bool WasStreamed { get; set; }
 ```
 
 ##### FinishReason
-Причина завершения генерации.
+Reason for generation completion.
 
 ```csharp
 string? FinishReason { get; set; }
 ```
 
-**Возможные значения:**
-- `"stop"` - нормальное завершение
-- `"length"` - достигнут лимит токенов
-- `"content_filter"` - сработал фильтр контента
+**Possible values:**
+- `"stop"` - normal completion
+- `"length"` - token limit reached
+- `"content_filter"` - content filter triggered
 
 ### Usage
 
-#### Свойства
+#### Properties
 
 ##### PromptTokens
-Количество токенов в запросе (включая историю).
+Number of tokens in request (including history).
 
 ```csharp
 int PromptTokens { get; set; }
 ```
 
 ##### CompletionTokens
-Количество токенов в ответе.
+Number of tokens in response.
 
 ```csharp
 int CompletionTokens { get; set; }
 ```
 
 ##### TotalTokens
-Общее количество использованных токенов.
+Total number of tokens used.
 
 ```csharp
 int TotalTokens { get; set; }
@@ -578,9 +578,9 @@ int TotalTokens { get; set; }
 
 ---
 
-## 💡 Примеры использования
+## 💡 Usage Examples
 
-### 1. Простой чат-бот
+### 1. Simple Chat Bot
 
 ```csharp
 using DeepSeek.Client;
@@ -606,7 +606,7 @@ class SimpleChatBot
 }
 ```
 
-### 2. Чат-бот с потоковым выводом
+### 2. Streaming Chat Bot
 
 ```csharp
 class StreamingChatBot
@@ -617,7 +617,7 @@ class StreamingChatBot
     {
         _client = new DeepSeekClient(apiKey);
 
-        // Настраиваем потоковый вывод
+        // Configure streaming output
         _client.OnStreamChunkReceived += (sender, chunk) =>
         {
             Console.Write(chunk);
@@ -641,7 +641,7 @@ class StreamingChatBot
 }
 ```
 
-### 3. WPF чат приложение
+### 3. WPF Chat Application
 
 ```csharp
 using DeepSeek.Client;
@@ -672,7 +672,7 @@ public partial class ChatWindow : Window
 
         _client = new DeepSeekClient("your-api-key", options);
 
-        // Настраиваем обработчики событий
+        // Configure event handlers
         _client.OnStreamChunkReceived += Client_OnStreamChunkReceived;
         _client.OnError += Client_OnError;
         _client.OnTokenUsage += Client_OnTokenUsage;
@@ -738,7 +738,7 @@ public partial class ChatWindow : Window
 }
 ```
 
-### 4. Системные инструкции
+### 4. System Instructions
 
 ```csharp
 class SpecializedAssistant
@@ -749,7 +749,7 @@ class SpecializedAssistant
     {
         _client = new DeepSeekClient(apiKey);
 
-        // Добавляем системную инструкцию
+        // Add system instruction
         _client.AddMessage("system", "You are a helpful programming assistant. Always provide code examples.");
     }
 
@@ -761,7 +761,7 @@ class SpecializedAssistant
 }
 ```
 
-### 5. Многоступенчатый разговор
+### 5. Multi-step Conversation
 
 ```csharp
 class ConversationManager
@@ -772,33 +772,33 @@ class ConversationManager
     {
         _client = new DeepSeekClient(apiKey, new DeepSeekClientOptions
         {
-            MaxHistorySize = 100, // Длинная история для сложных разговоров
-            Temperature = 0.3     // Более детерминированные ответы
+            MaxHistorySize = 100, // Long history for complex conversations
+            Temperature = 0.3     // More deterministic responses
         });
     }
 
     public async Task RunConversationAsync()
     {
-        // Этап 1: Приветствие
-        var greeting = await _client.SendMessageAsync("Привет! Давай поговорим о программировании.");
+        // Step 1: Greeting
+        var greeting = await _client.SendMessageAsync("Hello! Let's talk about programming.");
         Console.WriteLine($"Assistant: {greeting.Content}");
 
-        // Этап 2: Обсуждение темы
-        var discussion = await _client.SendMessageAsync("Какие языки программирования ты знаешь?");
+        // Step 2: Topic discussion
+        var discussion = await _client.SendMessageAsync("What programming languages do you know?");
         Console.WriteLine($"Assistant: {discussion.Content}");
 
-        // Этап 3: Глубокий анализ
-        var analysis = await _client.SendMessageAsync("Расскажи подробнее о C#.");
+        // Step 3: Deep analysis
+        var analysis = await _client.SendMessageAsync("Tell me more about C#.");
         Console.WriteLine($"Assistant: {analysis.Content}");
 
-        // Просмотр истории
+        // View history
         var history = _client.GetHistory();
-        Console.WriteLine($"\nВсего сообщений в истории: {history.Count}");
+        Console.WriteLine($"\nTotal messages in history: {history.Count}");
     }
 }
 ```
 
-### 6. Обработка ошибок
+### 6. Error Handling
 
 ```csharp
 class RobustChatBot
@@ -812,7 +812,7 @@ class RobustChatBot
             Timeout = TimeSpan.FromSeconds(30)
         });
 
-        // Настраиваем обработку ошибок
+        // Configure error handling
         _client.OnError += HandleError;
     }
 
@@ -853,9 +853,9 @@ class RobustChatBot
 
 ---
 
-## ⚡ Расширенные возможности
+## ⚡ Advanced Features
 
-### Streaming и реальное время
+### Streaming and Real-time Processing
 
 ```csharp
 class RealTimeChat
@@ -866,13 +866,13 @@ class RealTimeChat
     {
         _client = new DeepSeekClient(apiKey);
 
-        // Обработка каждого слова отдельно
+        // Process each word individually
         _client.OnStreamChunkReceived += ProcessWord;
     }
 
     private void ProcessWord(object? sender, string chunk)
     {
-        // Можно анализировать каждое слово
+        // You can analyze each word
         if (chunk.Contains("error") || chunk.Contains("Error"))
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -884,18 +884,18 @@ class RealTimeChat
 
     public async Task DemonstrateStreamingAsync()
     {
-        Console.WriteLine("Начинаем потоковую передачу...\n");
+        Console.WriteLine("Starting streaming transmission...\n");
 
         var result = await _client.SendMessageAsync(
-            "Напиши длинный рассказ о программировании",
+            "Write a long story about programming",
             stream: true);
 
-        Console.WriteLine($"\n\nЗавершено. Токенов: {result.Usage?.TotalTokens ?? 0}");
+        Console.WriteLine($"\n\nCompleted. Tokens: {result.Usage?.TotalTokens ?? 0}");
     }
 }
 ```
 
-### Управление историей
+### History Management
 
 ```csharp
 class HistoryManager
@@ -909,39 +909,39 @@ class HistoryManager
             MaxHistorySize = 10
         });
 
-        // Отслеживаем изменения истории
+        // Track history changes
         _client.OnMessageAdded += (sender, message) =>
-            Console.WriteLine($"Добавлено: {message.Role}");
+            Console.WriteLine($"Added: {message.Role}");
 
         _client.OnHistoryCleared += (sender, args) =>
-            Console.WriteLine("История очищена");
+            Console.WriteLine("History cleared");
     }
 
     public async Task DemonstrateHistoryAsync()
     {
-        // Отправляем несколько сообщений
+        // Send several messages
         for (int i = 1; i <= 5; i++)
         {
-            await _client.SendMessageAsync($"Сообщение #{i}");
-            Console.WriteLine($"История содержит {_client.HistoryCount} сообщений");
+            await _client.SendMessageAsync($"Message #{i}");
+            Console.WriteLine($"History contains {_client.HistoryCount} messages");
         }
 
-        // Просматриваем историю
+        // View history
         var history = _client.GetHistory();
-        Console.WriteLine("\nИстория разговора:");
+        Console.WriteLine("\nConversation history:");
         foreach (var msg in history)
         {
             Console.WriteLine($"{msg.Role}: {msg.Content}");
         }
 
-        // Очищаем историю
+        // Clear history
         _client.ClearHistory();
-        Console.WriteLine($"После очистки: {_client.HistoryCount} сообщений");
+        Console.WriteLine($"After clearing: {_client.HistoryCount} messages");
     }
 }
 ```
 
-### Отладка и мониторинг
+### Debugging and Monitoring
 
 ```csharp
 class DebugChatBot
@@ -958,7 +958,7 @@ class DebugChatBot
 
         _client = new DeepSeekClient(apiKey, options);
 
-        // Подписываемся на все события
+        // Subscribe to all events
         _client.OnDebugInfo += (sender, info) =>
             Log($"DEBUG: {info}");
 
@@ -974,14 +974,14 @@ class DebugChatBot
 
     public async Task DebugSessionAsync()
     {
-        Log("Начинаем отладочную сессию...");
+        Log("Starting debug session...");
 
         var result = await _client.SendMessageWithDebugAsync(
-            "Расскажи о C# за 3 предложения");
+            "Tell me about C# in 3 sentences");
 
-        Log($"Результат: {result.Content}");
-        Log($"Потоковый режим: {result.WasStreamed}");
-        Log($"Причина завершения: {result.FinishReason}");
+        Log($"Result: {result.Content}");
+        Log($"Streaming mode: {result.WasStreamed}");
+        Log($"Finish reason: {result.FinishReason}");
     }
 
     private void Log(string message)
@@ -992,7 +992,7 @@ class DebugChatBot
 }
 ```
 
-### Кастомные модели и опции
+### Custom Models and Options
 
 ```csharp
 class AdvancedConfiguration
@@ -1001,9 +1001,9 @@ class AdvancedConfiguration
     {
         var options = new DeepSeekClientOptions
         {
-            Model = "deepseek-coder",  // Для программирования
-            Temperature = 0.1,         // Детерминированные ответы
-            MaxTokens = 2000,          // Длинные ответы
+            Model = "deepseek-coder",  // For programming
+            Temperature = 0.1,         // Deterministic responses
+            MaxTokens = 2000,          // Long responses
             Timeout = TimeSpan.FromMinutes(10),
             ShowDebugInfo = false,
             ShowTokenUsage = true,
@@ -1018,7 +1018,7 @@ class AdvancedConfiguration
         var options = new DeepSeekClientOptions
         {
             Model = "deepseek-chat",
-            Temperature = 1.2,         // Креативные ответы
+            Temperature = 1.2,         // Creative responses
             MaxTokens = 500,
             Timeout = TimeSpan.FromSeconds(30),
             ShowDebugInfo = false,
@@ -1033,12 +1033,12 @@ class AdvancedConfiguration
 
 ---
 
-## 🚨 Обработка ошибок
+## 🚨 Error Handling
 
-### Типы ошибок
+### Error Types
 
 #### 1. HttpRequestException
-Ошибки HTTP соединения.
+HTTP connection errors.
 
 ```csharp
 try
@@ -1047,23 +1047,23 @@ try
 }
 catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
 {
-    // Неверный API ключ
-    Console.WriteLine("Проверьте API ключ");
+    // Invalid API key
+    Console.WriteLine("Check your API key");
 }
 catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
 {
-    // Превышен лимит запросов
+    // Rate limit exceeded
     await Task.Delay(TimeSpan.FromSeconds(60));
 }
 catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.InternalServerError)
 {
-    // Ошибка сервера DeepSeek
-    Console.WriteLine("Сервер временно недоступен");
+    // DeepSeek server error
+    Console.WriteLine("Server temporarily unavailable");
 }
 ```
 
 #### 2. TaskCanceledException
-Таймаут или отмена операции.
+Timeout or operation cancellation.
 
 ```csharp
 try
@@ -1072,44 +1072,44 @@ try
 }
 catch (TaskCanceledException ex)
 {
-    Console.WriteLine("Запрос отменен или превышен таймаут");
-    // Можно повторить с большим таймаутом
+    Console.WriteLine("Request canceled or timed out");
+    // Can retry with larger timeout
 }
 ```
 
 #### 3. JsonException
-Ошибка парсинга JSON ответа.
+JSON parsing error in response.
 
 ```csharp
 client.OnError += (sender, error) =>
 {
     if (error is JsonException jsonEx)
     {
-        Console.WriteLine($"Ошибка парсинга ответа: {jsonEx.Message}");
-        // Возможно, API вернул неожиданный формат
+        Console.WriteLine($"Response parsing error: {jsonEx.Message}");
+        // API might have returned unexpected format
     }
 };
 ```
 
 #### 4. ArgumentException
-Неверные параметры.
+Invalid parameters.
 
 ```csharp
-// Проверка перед отправкой
+// Validation before sending
 if (string.IsNullOrWhiteSpace(message))
 {
-    throw new ArgumentException("Сообщение не может быть пустым");
+    throw new ArgumentException("Message cannot be empty");
 }
 
 if (message.Length > 10000)
 {
-    throw new ArgumentException("Сообщение слишком длинное");
+    throw new ArgumentException("Message is too long");
 }
 ```
 
-### Стратегии обработки ошибок
+### Error Handling Strategies
 
-#### 1. Повторные попытки
+#### 1. Retry Attempts
 
 ```csharp
 class ResilientChatBot
@@ -1134,12 +1134,12 @@ class ResilientChatBot
             }
         }
 
-        throw new InvalidOperationException("Все попытки исчерпаны");
+        throw new InvalidOperationException("All attempts exhausted");
     }
 }
 ```
 
-#### 2. Graceful degradation
+#### 2. Graceful Degradation
 
 ```csharp
 class GracefulChatBot
@@ -1166,7 +1166,7 @@ class GracefulChatBot
     {
         if (!_isOnline)
         {
-            return "Сервис временно недоступен. Попробуйте позже.";
+            return "Service temporarily unavailable. Please try again later.";
         }
 
         try
@@ -1177,7 +1177,7 @@ class GracefulChatBot
         catch
         {
             _isOnline = false;
-            return "Произошла ошибка. Попробуйте еще раз.";
+            return "An error occurred. Please try again.";
         }
     }
 
@@ -1191,7 +1191,7 @@ class GracefulChatBot
 }
 ```
 
-#### 3. Валидация входных данных
+#### 3. Input Validation
 
 ```csharp
 class ValidatingChatBot
@@ -1200,16 +1200,16 @@ class ValidatingChatBot
 
     public async Task<string> SendValidatedMessageAsync(string message)
     {
-        // Валидация
+        // Validation
         if (string.IsNullOrWhiteSpace(message))
-            throw new ArgumentException("Сообщение не может быть пустым");
+            throw new ArgumentException("Message cannot be empty");
 
         if (message.Length > 8000)
-            throw new ArgumentException("Сообщение слишком длинное");
+            throw new ArgumentException("Message is too long");
 
-        // Проверка на запрещенный контент
+        // Check for forbidden content
         if (ContainsForbiddenContent(message))
-            throw new ArgumentException("Сообщение содержит запрещенный контент");
+            throw new ArgumentException("Message contains forbidden content");
 
         try
         {
@@ -1218,13 +1218,13 @@ class ValidatingChatBot
         }
         catch (Exception ex)
         {
-            throw new ApplicationException($"Ошибка отправки сообщения: {ex.Message}", ex);
+            throw new ApplicationException($"Message sending error: {ex.Message}", ex);
         }
     }
 
     private bool ContainsForbiddenContent(string message)
     {
-        var forbiddenWords = new[] { "запрещенное", "слово" };
+        var forbiddenWords = new[] { "forbidden", "word" };
         return forbiddenWords.Any(word => message.Contains(word, StringComparison.OrdinalIgnoreCase));
     }
 }
@@ -1232,9 +1232,9 @@ class ValidatingChatBot
 
 ---
 
-## 🎯 Лучшие практики
+## 🎯 Best Practices
 
-### 1. Управление ресурсами
+### 1. Resource Management
 
 ```csharp
 class ResourceManagedBot : IDisposable
@@ -1249,7 +1249,7 @@ class ResourceManagedBot : IDisposable
 
     public async Task<string> ProcessMessageAsync(string message)
     {
-        // Всегда используем using для cancellation tokens
+        // Always use using for cancellation tokens
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 
         try
@@ -1259,7 +1259,7 @@ class ResourceManagedBot : IDisposable
         }
         catch (TaskCanceledException)
         {
-            return "Запрос отменен по таймауту";
+            return "Request canceled by timeout";
         }
     }
 
@@ -1274,7 +1274,7 @@ class ResourceManagedBot : IDisposable
 }
 ```
 
-### 2. Оптимизация производительности
+### 2. Performance Optimization
 
 ```csharp
 class OptimizedBot
@@ -1283,14 +1283,14 @@ class OptimizedBot
 
     public OptimizedBot(string apiKey)
     {
-        // Оптимизированные настройки
+        // Optimized settings
         var options = new DeepSeekClientOptions
         {
             Temperature = 0.7,
             MaxTokens = 1000,
             Timeout = TimeSpan.FromSeconds(30),
-            MaxHistorySize = 20,  // Ограниченная история для производительности
-            ShowDebugInfo = false // Отключаем отладку в продакшене
+            MaxHistorySize = 20,  // Limited history for performance
+            ShowDebugInfo = false // Disable debug in production
         };
 
         _client = new DeepSeekClient(apiKey, options);
@@ -1298,21 +1298,21 @@ class OptimizedBot
 
     public async Task<string> GetQuickResponseAsync(string question)
     {
-        // Для быстрых ответов используем SendMessageOnceAsync
+        // Use SendMessageOnceAsync for quick responses
         var result = await _client.SendMessageOnceAsync(question, stream: false);
         return result.Content;
     }
 
     public async Task<string> GetDetailedResponseAsync(string question)
     {
-        // Для детальных ответов используем полную историю
+        // Use full history for detailed responses
         var result = await _client.SendMessageAsync(question, stream: true);
         return result.Content;
     }
 }
 ```
 
-### 3. Логирование и мониторинг
+### 3. Logging and Monitoring
 
 ```csharp
 class MonitoredBot
@@ -1331,7 +1331,7 @@ class MonitoredBot
 
         _client = new DeepSeekClient(apiKey, options);
 
-        // Логируем все события
+        // Log all events
         _client.OnError += (sender, error) =>
             _logger.LogError(error, "DeepSeek API error");
 
@@ -1355,13 +1355,13 @@ class MonitoredBot
 }
 ```
 
-### 4. Безопасность
+### 4. Security
 
 ```csharp
 class SecureBot
 {
     private readonly DeepSeekClient _client;
-    private readonly string[] _forbiddenTopics = { "пароли", "ключи", "секреты" };
+    private readonly string[] _forbiddenTopics = { "passwords", "keys", "secrets" };
 
     public SecureBot(string apiKey)
     {
@@ -1370,13 +1370,13 @@ class SecureBot
 
     public async Task<string> SendSecureMessageAsync(string message)
     {
-        // Проверка на безопасность
+        // Security check
         if (ContainsSensitiveInfo(message))
         {
-            throw new SecurityException("Сообщение содержит чувствительную информацию");
+            throw new SecurityException("Message contains sensitive information");
         }
 
-        // Очистка от потенциально опасного контента
+        // Clean potentially dangerous content
         var sanitizedMessage = SanitizeMessage(message);
 
         var result = await _client.SendMessageAsync(sanitizedMessage);
@@ -1391,14 +1391,14 @@ class SecureBot
 
     private string SanitizeMessage(string message)
     {
-        // Удаляем потенциально опасные паттерны
+        // Remove potentially dangerous patterns
         return message.Replace("password", "[FILTERED]")
                      .Replace("api_key", "[FILTERED]");
     }
 }
 ```
 
-### 5. Тестирование
+### 5. Testing
 
 ```csharp
 class TestableBot
@@ -1410,27 +1410,27 @@ class TestableBot
         _client = new DeepSeekClient(apiKey);
     }
 
-    // Метод для тестирования с mock данными
+    // Method for testing with mock data
     public async Task<string> SendTestMessageAsync(string message)
     {
-        // В тестах можно подменить _client на mock
+        // In tests you can replace _client with mock
         var result = await _client.SendMessageAsync(message);
         return result.Content;
     }
 
-    // Метод для интеграционных тестов
+    // Method for integration tests
     public async Task<ChatResult> SendMessageWithResultAsync(string message)
     {
         return await _client.SendMessageAsync(message);
     }
 
-    // Метод для проверки истории
+    // Method for checking history
     public List<ChatMessage> GetConversationHistory()
     {
         return _client.GetHistory();
     }
 
-    // Метод для сброса состояния между тестами
+    // Method for resetting state between tests
     public void Reset()
     {
         _client.ClearHistory();
@@ -1442,33 +1442,33 @@ class TestableBot
 
 ## 🔧 Troubleshooting
 
-### Распространенные проблемы
+### Common Issues
 
 #### 1. "Invalid API key"
 
-**Симптомы:**
-- `HttpRequestException` с кодом 401
-- Сообщение "Unauthorized"
+**Symptoms:**
+- `HttpRequestException` with code 401
+- Message "Unauthorized"
 
-**Решения:**
+**Solutions:**
 ```csharp
-// Проверьте API ключ
+// Check your API key
 var client = new DeepSeekClient("sk-correct-api-key-here");
 
-// Убедитесь, что ключ активен на platform.deepseek.com
+// Make sure the key is active on platform.deepseek.com
 ```
 
 #### 2. "Request timeout"
 
-**Симптомы:**
+**Symptoms:**
 - `TaskCanceledException`
-- Долгое ожидание ответа
+- Long wait for response
 
-**Решения:**
+**Solutions:**
 ```csharp
 var options = new DeepSeekClientOptions
 {
-    Timeout = TimeSpan.FromMinutes(10)  // Увеличьте таймаут
+    Timeout = TimeSpan.FromMinutes(10)  // Increase timeout
 };
 
 var client = new DeepSeekClient("api-key", options);
@@ -1476,33 +1476,33 @@ var client = new DeepSeekClient("api-key", options);
 
 #### 3. "Rate limit exceeded"
 
-**Симптомы:**
-- `HttpRequestException` с кодом 429
-- Сообщение "Too Many Requests"
+**Symptoms:**
+- `HttpRequestException` with code 429
+- Message "Too Many Requests"
 
-**Решения:**
+**Solutions:**
 ```csharp
-// Добавьте задержку между запросами
+// Add delay between requests
 await Task.Delay(TimeSpan.FromSeconds(60));
 
-// Или используйте повторные попытки с экспоненциальной задержкой
+// Or use retry with exponential backoff
 ```
 
 #### 4. "Maximum context length exceeded"
 
-**Симптомы:**
-- Ошибка при длинной истории
+**Symptoms:**
+- Error with long history
 - `FinishReason = "length"`
 
-**Решения:**
+**Solutions:**
 ```csharp
-// Ограничьте размер истории
+// Limit history size
 var options = new DeepSeekClientOptions
 {
     MaxHistorySize = 10
 };
 
-// Или очищайте историю периодически
+// Or clear history periodically
 if (client.HistoryCount > 20)
 {
     client.ClearHistory();
@@ -1511,28 +1511,28 @@ if (client.HistoryCount > 20)
 
 #### 5. "Stream parsing errors"
 
-**Симптомы:**
-- `JsonException` при потоковом выводе
-- Неполные или искаженные ответы
+**Symptoms:**
+- `JsonException` during streaming output
+- Incomplete or corrupted responses
 
-**Решения:**
+**Solutions:**
 ```csharp
-// Отключите потоковый режим для проблемных запросов
+// Disable streaming mode for problematic requests
 var result = await client.SendMessageAsync(message, stream: false);
 
-// Или добавьте обработку ошибок
+// Or add error handling
 client.OnError += (sender, error) =>
 {
     if (error is JsonException)
     {
-        Console.WriteLine("Ошибка парсинга стрима, переключаюсь на обычный режим");
+        Console.WriteLine("Stream parsing error, switching to normal mode");
     }
 };
 ```
 
-### Отладка проблем
+### Debugging Issues
 
-#### Включение детального логирования
+#### Enabling Detailed Logging
 
 ```csharp
 var options = new DeepSeekClientOptions
@@ -1547,7 +1547,7 @@ client.OnDebugInfo += (sender, info) => Console.WriteLine($"[DEBUG] {info}");
 client.OnError += (sender, error) => Console.WriteLine($"[ERROR] {error.Message}");
 ```
 
-#### Проверка сетевого соединения
+#### Network Connection Check
 
 ```csharp
 class NetworkChecker
@@ -1568,7 +1568,7 @@ class NetworkChecker
 }
 ```
 
-#### Валидация конфигурации
+#### Configuration Validation
 
 ```csharp
 class ConfigurationValidator
@@ -1576,20 +1576,20 @@ class ConfigurationValidator
     public static void ValidateOptions(DeepSeekClientOptions options)
     {
         if (string.IsNullOrEmpty(options.Model))
-            throw new ArgumentException("Model не может быть пустым");
+            throw new ArgumentException("Model cannot be empty");
 
         if (options.Temperature < 0 || options.Temperature > 2)
-            throw new ArgumentException("Temperature должен быть в диапазоне 0-2");
+            throw new ArgumentException("Temperature must be in range 0-2");
 
         if (options.MaxHistorySize < 0)
-            throw new ArgumentException("MaxHistorySize не может быть отрицательным");
+            throw new ArgumentException("MaxHistorySize cannot be negative");
     }
 }
 ```
 
-### Производительность
+### Performance
 
-#### Оптимизация для высокой нагрузки
+#### High Load Optimization
 
 ```csharp
 class HighPerformanceBot
@@ -1600,10 +1600,10 @@ class HighPerformanceBot
     {
         var options = new DeepSeekClientOptions
         {
-            Timeout = TimeSpan.FromSeconds(15),  // Короткий таймаут
-            MaxHistorySize = 5,                  // Минимальная история
-            ShowDebugInfo = false,               // Отключаем отладку
-            ShowTokenUsage = false               // Отключаем статистику
+            Timeout = TimeSpan.FromSeconds(15),  // Short timeout
+            MaxHistorySize = 5,                  // Minimal history
+            ShowDebugInfo = false,               // Disable debug
+            ShowTokenUsage = false               // Disable statistics
         };
 
         _client = new DeepSeekClient(apiKey, options);
@@ -1611,14 +1611,14 @@ class HighPerformanceBot
 
     public async Task<string> GetFastResponseAsync(string question)
     {
-        // Используем SendMessageOnceAsync для избежания overhead истории
+        // Use SendMessageOnceAsync to avoid history overhead
         var result = await _client.SendMessageOnceAsync(question, stream: false);
         return result.Content;
     }
 }
 ```
 
-#### Мониторинг ресурсов
+#### Resource Monitoring
 
 ```csharp
 class ResourceMonitor
@@ -1647,32 +1647,32 @@ class ResourceMonitor
 
 ---
 
-## 📝 Заключение
+## 📝 Conclusion
 
-DeepSeek.Client - это мощная и гибкая библиотека для интеграции с DeepSeek AI API. Она предоставляет:
+DeepSeek.Client is a powerful and flexible library for integrating with the DeepSeek AI API. It provides:
 
-- ✅ **Простой API** для быстрого старта
-- ✅ **Расширенные возможности** для сложных сценариев
-- ✅ **Надежную обработку ошибок** для production использования
-- ✅ **Оптимизацию производительности** для высоких нагрузок
-- ✅ **Полную документацию** для легкого освоения
+- ✅ **Simple API** for quick start
+- ✅ **Advanced features** for complex scenarios
+- ✅ **Reliable error handling** for production use
+- ✅ **Performance optimization** for high loads
+- ✅ **Complete documentation** for easy learning
 
-### Следующие шаги
+### Next Steps
 
-1. **Изучите примеры** в папке `samples/`
-2. **Попробуйте базовый пример** для первого знакомства
-3. **Ознакомьтесь с API Reference** для глубокого понимания
-4. **Изучите лучшие практики** для production использования
-5. **Посмотрите troubleshooting** при возникновении проблем
+1. **Explore examples** in the `samples/` folder
+2. **Try the basic example** for first acquaintance
+3. **Review the API Reference** for deep understanding
+4. **Study best practices** for production use
+5. **Check troubleshooting** when encountering issues
 
-### Поддержка
+### Support
 
-- 📖 **Документация**: Этот файл содержит полную информацию
-- 💡 **Примеры**: Готовые примеры в папке `samples/`
-- 🐛 **Issues**: Создавайте issues на GitHub для багов и фич
-- 💬 **Discussions**: Обсуждайте идеи и задавайте вопросы
+- 📖 **Documentation**: This file contains complete information
+- 💡 **Examples**: Ready-made examples in the `samples/` folder
+- 🐛 **Issues**: Create issues on GitHub for bugs and features
+- 💬 **Discussions**: Discuss ideas and ask questions
 
 ---
 
-*Документация создана для DeepSeek.Client v1.1.0*
-*Последнее обновление: 4 сентября 2025 года*
+*Documentation created for DeepSeek.Client v1.1.0*
+*Last updated: September 4, 2025*
